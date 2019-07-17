@@ -25,7 +25,7 @@
 #importing dependencies:
 import requests
 #importing built-in modules:
-import datetime, time, urllib, base64, hashlib, hmac, re, imaplib, getpass, email, sys
+import datetime, time, urllib, base64, hashlib, hmac, re, imaplib, getpass, email, sys, os
 #local version, also not in use at the moment
 #import utils
 MWS_API=[{"Action":"RequestReport", "Version":"2009-01-01", "Reqd_ParamNameA":"ReportType", "ReportType":"_GET_FLAT_FILE_OPEN_LISTINGS_DATA_", "HTTP_Method":"POST", "HTTP_Path":"/"},
@@ -110,8 +110,8 @@ def calc_md5(string):
 def fetch_mail():
     #Takes care of logging in
     #import imaplib, getpass, email
-    email_address = "automatpc.41@gmail.com"
-    password = "dwhmkkqswkutirjr"
+    email_address = os.environ['MAIL_ADDRESS']
+    password = os.environ['MAIL_PASSWORD']
     #getpass.getpass('Password:')
     M = imaplib.IMAP4_SSL('imap.gmail.com')
     M.login(email_address, password)
