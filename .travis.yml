@@ -3,7 +3,7 @@ services:
   - checkloop
 
 before_install:
-  - docker build -t jcsolutions/test-amz-inv-chk -f ./checkloop/Dockerfile.dev ./checkloop
+  - docker build -t jcsolutions/test-amz-inv-chk -f ./Dockerfile.dev .
 
 script:
   - echo "skipping tests"
