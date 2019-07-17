@@ -27,3 +27,6 @@ deploy:
   bucket_path: amz-inv-chk-test
   on:
     branch: master
+  acces_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $AWS_SECRET_ACCESS_KEY
