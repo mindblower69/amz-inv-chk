@@ -1,6 +1,4 @@
 sudo: required
-services:
-  - checkloop
 
 before_install:
   - docker build -t jcsolutions/test-amz-inv-chk -f ./Dockerfile.dev .
