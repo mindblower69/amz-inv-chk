@@ -36,6 +36,8 @@ MWS_API=[{"Action":"RequestReport", "Version":"2009-01-01", "Reqd_ParamNameA":"R
 dict_res={}
 sku_list_rem=[]
 #sku_list_remd=[]
+app_pass = os.environ.get['APP_PASSWORD']
+app_mail = os.environ.get['APP_ADDRESS']
 
 #Starting to define functions, seperate features in prep for logic loop
 #Generates HTTP Header
@@ -110,8 +112,8 @@ def calc_md5(string):
 def fetch_mail():
     #Takes care of logging in
     #import imaplib, getpass, email
-    email_address = os.environ['MAIL_ADDRESS']
-    password = os.environ['MAIL_PASSWORD']
+    email_address = app_mail
+    password = app_pass
     #getpass.getpass('Password:')
     M = imaplib.IMAP4_SSL('imap.gmail.com')
     M.login(email_address, password)

@@ -13,6 +13,11 @@ after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push jcsolutions/amz-inv-chk
 
+env:
+  global:
+    - APP_ADDRESS=$MAIL_ADDRESS
+    - APP_PASSWORD=$MAIL_PASSWORD
+
 deploy:
   provider: elasticbeanstalk
   region: us-east-1
