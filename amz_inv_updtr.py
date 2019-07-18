@@ -38,6 +38,7 @@ sku_list_rem=[]
 #sku_list_remd=[]
 app_pass = os.environ.get('APP_PASSWORD')
 app_mail = os.environ.get('APP_ADDRESS')
+print(app_mail)
 
 #Starting to define functions, seperate features in prep for logic loop
 #Generates HTTP Header
@@ -114,6 +115,7 @@ def fetch_mail():
     #import imaplib, getpass, email
     email_address = app_mail
     password = app_pass
+    print(email_address)
     #getpass.getpass('Password:')
     M = imaplib.IMAP4_SSL('imap.gmail.com')
     M.login(email_address, password)
