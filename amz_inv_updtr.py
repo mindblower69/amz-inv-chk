@@ -38,7 +38,7 @@ sku_list_rem=[]
 #sku_list_remd=[]
 app_pass = os.environ.get('APP_PASSWORD')
 app_mail = os.environ.get('APP_ADDRESS')
-print(app_mail)
+
 
 #Starting to define functions, seperate features in prep for logic loop
 #Generates HTTP Header
@@ -110,12 +110,13 @@ def calc_md5(string):
         md5_hash.update(string)
     return base64.b64encode(md5_hash.digest()).strip(b'\n')
 
-def fetch_mail():
+def fetch_mail(a_email, a_pass):
     #Takes care of logging in
     #import imaplib, getpass, email
-    email_address = app_mail
-    password = app_pass
+    email_address = a_email
+    password = a_pass
     print(email_address)
+    print(os.environ.get('APP_ADDRESS'))
     #getpass.getpass('Password:')
     M = imaplib.IMAP4_SSL('imap.gmail.com')
     M.login(email_address, password)
@@ -360,11 +361,12 @@ def mwsRequest(diction, dict_res={}, sku_list=[]):
 
 
 
-
 #Logic Loop
 for item in MWS_API:
     if item['Action']=='SubmitFeed':
-        em_sku_list = fetch_mail()
+        print("app_mail=")
+        print(app_mail)
+        em_sku_list = fetch_mail(app_mail, app_pass)
         amz_sku_list_dict = dict_res
         for store_item in range(len(amz_sku_list_dict['sku'])):
             if amz_sku_list_dict['sku'][store_item] in em_sku_list and int(amz_sku_list_dict['quantity'][store_item]) > 0:
