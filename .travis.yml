@@ -2,6 +2,11 @@ sudo: required
 services:
   - checkloop
 
+env:
+  global:
+    - APP_ADDRESS=$MAIL_ADDRESS
+    - APP_PASSWORD=$MAIL_PASSWORD
+
 before_install:
   - docker build -t jcsolutions/test-amz-inv-chk -f ./Dockerfile.dev .
 
@@ -12,11 +17,6 @@ after_success:
   - docker build -t jcsolutions/amz-inv-chk ./amz-inv-chk
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push jcsolutions/amz-inv-chk
-
-env:
-  global:
-    - APP_ADDRESS=$MAIL_ADDRESS
-    - APP_PASSWORD=$MAIL_PASSWORD
 
 deploy:
   provider: elasticbeanstalk
