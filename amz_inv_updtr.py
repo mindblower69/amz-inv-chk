@@ -36,8 +36,10 @@ MWS_API=[{"Action":"RequestReport", "Version":"2009-01-01", "Reqd_ParamNameA":"R
 dict_res={}
 sku_list_rem=[]
 #sku_list_remd=[]
-app_pass = os.environ.get('APP_PASSWORD')
-app_mail = os.environ.get('APP_ADDRESS')
+#os.environ.get('APP_PASSWORD')
+app_pass = "dwhmkkqswkutirjr"
+#os.environ.get('APP_ADDRESS')
+app_mail = "automatpc.41@gmail.com"
 
 
 #Starting to define functions, seperate features in prep for logic loop
