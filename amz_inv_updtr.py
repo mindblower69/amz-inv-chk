@@ -80,7 +80,7 @@ def signatureCanonQuery(diction, string):
 #Generate XML templates
 def assignXMLTemplates():
     XML_Templates={}
-    XML_Templates.update({"start":"""<?xml version="1.0" encoding="utf-8" ?>
+    XML_Templates.update({"start":"""<?xml version="1.0" encoding="utf-8"?>
     <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
     <Header>
     <DocumentVersion>1.01</DocumentVersion>
@@ -95,7 +95,8 @@ def assignXMLTemplates():
     <SKU>{sku}</SKU>
     <Quantity>{itemQuant}</Quantity>
     </Inventory>
-    </Message>"""})
+    </Message>
+    """})
     XML_Templates.update({"end":"""</AmazonEnvelope>"""})
     return XML_Templates
 
@@ -266,6 +267,7 @@ def mwsRequest(diction, dict_res={}, sku_list=[]):
     MWS_API={}
     MWS_API=diction
     paramA=dict_res
+    print(MWS_API['Action'])
     if MWS_API['Action'] == "GetReportList":
         MWS_API.update({MWS_API["Reqd_ParamNameA"]: paramA['ReportRequestId']})
         print("This is ParamA under Get Report List")
