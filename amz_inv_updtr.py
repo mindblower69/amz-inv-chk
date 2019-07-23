@@ -161,7 +161,7 @@ def fetch_mail(a_email, a_pass):
                 for sku in skuAll:
                     sku_list_em.append(sku)
 
-        print("Progress: {itA}/{goB}".format(itA = item, goB = goal))
+        print("Progress: {itA}/{goB}".format(itA = (int(item)+1), goB = goal))
     print(sku_list_em)
 
     #Takes care of logging out and closing current mail
@@ -298,7 +298,7 @@ def mwsRequest(diction, dict_res={}, sku_list=[]):
         #XML Content
         XML_Content = XML_Templates["start"].format(merchID=MWS_API['Merchant'])
         for k in range(len(sku_list)):
-            XML_Content += XML_Templates["message"].format(messageID=str(k+1),sku=sku_list[k]['sku'],itemQuant=str(int(sku_list[k]['currentQuant'])-1))
+            XML_Content += XML_Templates["message"].format(messageID=str(int(k)+1),sku=sku_list[k]['sku'],itemQuant=str(int(sku_list[k]['currentQuant'])-1))
         XML_Content += XML_Templates["end"]
         #f = open("xml_test.xml", "r")#XML_Content = f.read()#f.close()#MWS_Body={"FeedContent": XML_Content}
         print(XML_Content)
@@ -366,18 +366,24 @@ def mwsRequest(diction, dict_res={}, sku_list=[]):
 #Logic Loop
 for item in MWS_API:
     if item['Action']=='SubmitFeed':
-        print("app_mail=")
-        print(app_mail)
         em_sku_list = fetch_mail(app_mail, app_pass)
         amz_sku_list_dict = dict_res
+        print("amz_sku_list_dict :")
+        print(amz_sku_list_dict)
+
         for store_item in range(len(amz_sku_list_dict['sku'])):
-            if amz_sku_list_dict['sku'][store_item] in em_sku_list and int(amz_sku_list_dict['quantity'][store_item]) > 0:
-                sku_list_rem.append({"sku":amz_sku_list_dict['sku'][store_item], "currentQuant":int(amz_sku_list_dict['quantity'][store_item])})
+            for em_sku in em_sku_list:
+                if em_sku in amz_sku_list_dict['sku'][store_item] and int(amz_sku_list_dict['quantity'][store_item]) > 0:
+                    sku_list_rem.append({"sku":amz_sku_list_dict['sku'][store_item], "currentQuant":int(amz_sku_list_dict['quantity'][store_item])})
+                    print("sku_list_rem :")
+                    print(sku_list_rem)
     xml_res = mwsRequest(item, dict_res, sku_list_rem)
     #This is a save of the already removed items, so not to have repeats through out the day
     #sku_list_remd = sku_list_rem
     print("This is XML response before parsing")
     print(xml_res)
     dict_res = dict_response(xml_res)
+    print('dict_res :')
+    print(dict_res)
 
 print('done')
